@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -x
+
 DBNAME=database-name
 DATE=`date +"%Y%m%d"`
 SQLFILE=$DBNAME-${DATE}.sql
