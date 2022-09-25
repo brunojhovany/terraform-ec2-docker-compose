@@ -1,0 +1,6 @@
+**/**.tfvars
+.terraform/**
+**/**.pub
+**/**.pem
+**key
+**/**.backup

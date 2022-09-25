@@ -1,0 +1,30 @@
+#cloud-config
+package_upgrade: true
+packages:
+  - docker
+  - docker-compose
+write_files:
+  - path: /tmp/bootstrap_config.sh
+    content: |
+      set -x
+      # wait cloud-init
+      cloud-init status --wait
+      while (( 1 )); do
+        echo "Waiting for terraform to copy the startup configuration files..."
+        cp /tmp/traefik.toml /home/ubuntu/app/traefik.toml
+        cp /tmp/docker-compose.yaml /home/ubuntu/app/docker-compose.yaml
+        if [[ -f "/home/ubuntu/app/docker-compose.yaml" ]]; then
+          echo "all config files are created successfully"
+          cat /home/ubuntu/app/docker-compose.yaml
+          break
+        fi
+
+        sleep 10
+      done
+      
+runcmd:
+  - su -c "mkdir /home/ubuntu/app" ubuntu
+  - touch /home/ubuntu/app/acme.json
+  - chown ubuntu:ubuntu -R /home/ubuntu/app
+  - sudo docker network create web
+  # - cd /home/ubuntu/app && sudo docker-compose up -d 
