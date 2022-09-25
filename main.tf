@@ -1,11 +1,17 @@
 resource "aws_instance" "server_instance" {
   ami           = data.aws_ami.ubuntu.id
-  instance_type = "t2.micro"
+  instance_type = var.ec2_instance_size
   user_data     = file("user_data.yaml")
-  key_name      = "bruno_key"
+  key_name      = var.project_key
   vpc_security_group_ids = [
     aws_default_security_group.default.id
   ]
+  
+  root_block_device {
+    volume_size           = var.ec2_root_volume_size
+    volume_type           = var.ec2_root_volume_type
+    delete_on_termination = var.ec2_root_volume_delete_on_termination
+  }
   connection {
     type        = "ssh"
     user        = "ubuntu"
