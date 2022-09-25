@@ -35,10 +35,26 @@ variable "project_key" {
   description = "ssh key name"
 }
 
+variable "project_subdomains" {
+  type = list(string)
+  description = "subdomains for services"
+  default = [
+    "monitor.",
+    "api.",
+    ""
+  ]
+}
+
 variable "region" {
   type        = string
   default     = "us-east-1"
   description = "region of aws data center"
+}
+
+variable "availability_zones_count" {
+  description = "The number of AZs."
+  type        = number
+  default     = 2
 }
 
 variable "ec2_instance_size" {

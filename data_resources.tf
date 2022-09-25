@@ -18,6 +18,9 @@ data "http" "clientip" {
   url = "https://ipv4.icanhazip.com/"
 }
 
+data "aws_availability_zones" "available" {
+  state = "available"
+}
 
 locals {
   traefikconfig = <<TRAEFIKCONFIG

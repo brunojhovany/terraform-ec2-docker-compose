@@ -15,7 +15,6 @@ write_files:
         cp /tmp/docker-compose.yaml /home/ubuntu/app/docker-compose.yaml
         if [[ -f "/home/ubuntu/app/docker-compose.yaml" ]]; then
           echo "all config files are created successfully"
-          cat /home/ubuntu/app/docker-compose.yaml
           break
         fi
 
