@@ -24,6 +24,7 @@ write_files:
 runcmd:
   - su -c "mkdir /home/ubuntu/app" ubuntu
   - touch /home/ubuntu/app/acme.json
+  - chmod 600 /home/ubuntu/app/acme.json
   - chown ubuntu:ubuntu -R /home/ubuntu/app
   - sudo docker network create web
   # - cd /home/ubuntu/app && sudo docker-compose up -d 
